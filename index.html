@@ -148,6 +148,12 @@
     background:var(--bg-panel-2); border:1px solid var(--line); color:var(--ink);
     padding:8px 10px; border-radius:8px; font-family:'Inter'; margin-top:8px;
   }
+  .bulk-actions{display:flex; gap:8px; margin-top:10px;}
+  .bulk-actions button{
+    flex:1; background:var(--bg-panel-2); border:1px solid var(--line); color:var(--ink);
+    font-size:12px; padding:9px; border-radius:8px; font-family:'Oswald'; letter-spacing:.03em;
+  }
+  .bulk-actions button.mark{color:var(--teal); border-color:var(--teal);}
   .toast{
     position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px);
     background:var(--bg-panel-2); border:1px solid var(--gold-dim); color:var(--ink);
@@ -310,7 +316,14 @@ async function openDetail(id, seasonToShow){
       </div>
       <div class="overview">${stripHtml(show.summary) || "Nessuna trama disponibile."}</div>
       ${statusHtml}
+      <div class="bulk-actions">
+        <button class="mark" id="markShowBtn">Segna tutta la serie vista</button>
+      </div>
       <select class="season-select" id="seasonSelect"></select>
+      <div class="bulk-actions">
+        <button class="mark" id="markSeasonBtn">Segna stagione vista</button>
+        <button id="unmarkSeasonBtn">Azzera stagione</button>
+      </div>
       <div class="ep-list" id="epList"><div class="empty">Carico episodi...</div></div>
     `;
 
@@ -357,6 +370,43 @@ async function openDetail(id, seasonToShow){
       });
     }
     seasonSelect.addEventListener("change", ()=>loadSeason(parseInt(seasonSelect.value)));
+
+    document.getElementById("markShowBtn").addEventListener("click", ()=>{
+      library[key] = library[key] || {title:show.name, poster, watchedEpisodes:[], addedAt:Date.now()};
+      library[key].status = "completed";
+      const w = library[key].watchedEpisodes;
+      allEpisodes.forEach(ep=>{
+        if(!w.some(x=>x.season===ep.season && x.episode===ep.number)) w.push({season:ep.season, episode:ep.number});
+      });
+      saveLibrary();
+      content.querySelectorAll(".status-row button").forEach(b=>b.classList.toggle("active", b.dataset.s==="completed"));
+      loadSeason(parseInt(seasonSelect.value));
+      toast("Tutta la serie segnata come vista");
+    });
+
+    document.getElementById("markSeasonBtn").addEventListener("click", ()=>{
+      const snum = parseInt(seasonSelect.value);
+      library[key] = library[key] || {title:show.name, poster, status:"watching", watchedEpisodes:[], addedAt:Date.now()};
+      const seasonEpNums = allEpisodes.filter(e=>e.season===snum).map(e=>e.number);
+      const w = library[key].watchedEpisodes;
+      seasonEpNums.forEach(num=>{
+        if(!w.some(x=>x.season===snum && x.episode===num)) w.push({season:snum, episode:num});
+      });
+      library[key].currentSeason = snum;
+      saveLibrary();
+      loadSeason(snum);
+      toast("Stagione " + snum + " segnata come vista");
+    });
+
+    document.getElementById("unmarkSeasonBtn").addEventListener("click", ()=>{
+      const snum = parseInt(seasonSelect.value);
+      if(!library[key]) return;
+      library[key].watchedEpisodes = library[key].watchedEpisodes.filter(x=>x.season!==snum);
+      saveLibrary();
+      loadSeason(snum);
+      toast("Stagione " + snum + " azzerata");
+    });
+
     loadSeason(startSeason);
   }catch(e){
     content.innerHTML = "<div class='empty'>Errore nel caricamento.</div>";
