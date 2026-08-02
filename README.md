@@ -1,6 +1,8 @@
 # TV Companion
 
-MVP di un tracker per serie TV e film — ricerca via TMDB, libreria personale (da vedere / in corso / completate), tracking episodi visti, calendario prossime uscite.
+MVP di un tracker per serie TV — ricerca via TVMaze (nessuna registrazione o API key richiesta), libreria personale (da vedere / in corso / completate), tracking episodi visti, calendario prossime uscite.
+
+Nota: TVMaze copre solo serie TV, non i film. Se in futuro arriva l'accesso a TMDB si può reintrodurre il supporto ai film.
 
 ## File
 - `index.html` — tutta l'app (markup, stile, logica)
@@ -12,8 +14,7 @@ MVP di un tracker per serie TV e film — ricerca via TMDB, libreria personale (
 1. Crea un nuovo repository su GitHub (es. `tv-companion`)
 2. Con "Add file → Create new file" carica ognuno di questi 5 file nella root del repo
 3. Vai su **Settings → Pages**, imposta la sorgente su branch `main`, cartella `/ (root)`
-4. Apri l'URL generato (tipo `tuonome.github.io/tv-companion/`) da Safari
-5. Alla prima apertura ti chiederà la TMDB API key: incollala e sei dentro
+4. Apri l'URL generato (tipo `tuonome.github.io/tv-companion/`) da Safari — funziona subito, nessuna configurazione richiesta
 
 ## Come usare
 - **Cerca**: cerca un titolo, tocca il poster, scegli lo stato (da vedere / in corso / completata)

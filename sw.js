@@ -16,7 +16,7 @@ self.addEventListener("activate", e=>{
 self.addEventListener("fetch", e=>{
   const url = new URL(e.request.url);
   // Don't cache TMDB API calls or images — always go live for those
-  if(url.hostname.includes("themoviedb.org")){
+  if(url.hostname.includes("tvmaze.com")){
     return;
   }
   e.respondWith(

@@ -22,16 +22,13 @@
     --gold:#e3a544;
     --gold-dim:#8a672c;
     --teal:#3fa9a0;
-    --danger:#c96b5c;
     --line:#242b3a;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; padding:0; background:var(--bg-void); color:var(--ink);
     font-family:'Inter',system-ui,sans-serif; height:100%;}
   body{display:flex; flex-direction:column; min-height:100vh; padding-bottom:env(safe-area-inset-bottom);}
-
   h1,h2,h3,.display{font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.04em;}
-
   header.top{
     padding:18px 18px 14px; border-bottom:1px solid var(--line);
     display:flex; align-items:center; justify-content:space-between;
@@ -42,28 +39,9 @@
   header.top .bulb{width:10px; height:10px; border-radius:50%; background:var(--gold);
     box-shadow:0 0 8px var(--gold);}
   header.top h1{font-size:18px; margin:0; font-weight:600;}
-  header.top button{background:none; border:1px solid var(--line); color:var(--ink-dim);
-    border-radius:8px; padding:6px 10px; font-size:12px; font-family:'Inter';}
-
   main{flex:1; padding:16px; padding-bottom:90px; overflow-y:auto;}
   .view{display:none;}
   .view.active{display:block;}
-
-  /* Onboarding */
-  .onboard{display:flex; flex-direction:column; gap:14px; margin-top:12px;}
-  .onboard p{color:var(--ink-dim); font-size:14px; line-height:1.5; margin:0;}
-  .onboard input{
-    background:var(--bg-panel); border:1px solid var(--line); color:var(--ink);
-    padding:14px; border-radius:10px; font-size:15px; font-family:'Inter';
-  }
-  .onboard button.primary{
-    background:var(--gold); color:#1a1305; border:none; padding:14px;
-    border-radius:10px; font-family:'Oswald'; text-transform:uppercase;
-    letter-spacing:.06em; font-weight:600; font-size:14px;
-  }
-  .onboard a{color:var(--teal);}
-
-  /* Search */
   .search-bar{display:flex; gap:8px; margin-bottom:16px;}
   .search-bar input{
     flex:1; background:var(--bg-panel); border:1px solid var(--line); color:var(--ink);
@@ -73,17 +51,13 @@
     background:var(--bg-panel-2); border:1px solid var(--line); color:var(--gold);
     border-radius:10px; padding:0 16px; font-family:'Oswald'; letter-spacing:.04em;
   }
-
   .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
   .poster-card{cursor:pointer;}
   .poster-card img{width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:8px;
     background:var(--bg-panel); display:block; border:1px solid var(--line);}
   .poster-card .t{font-size:11px; color:var(--ink-dim); margin-top:4px; line-height:1.3;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
-
   .empty{color:var(--ink-dim); font-size:14px; text-align:center; padding:40px 20px; line-height:1.6;}
-
-  /* Library rows / calendar tickets */
   .ticket{
     background:var(--bg-panel); border:1px solid var(--line); border-radius:12px;
     padding:14px; margin-bottom:10px; display:flex; gap:12px; position:relative;
@@ -92,7 +66,6 @@
   .ticket::before{
     content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold);
   }
-  .ticket.movie::before{background:var(--teal);}
   .ticket img{width:52px; height:78px; object-fit:cover; border-radius:6px; flex-shrink:0;
     background:var(--bg-panel-2);}
   .ticket .info{flex:1; min-width:0;}
@@ -115,21 +88,17 @@
     font-family:'Oswald'; font-size:11px; color:var(--gold); border:1px solid var(--gold-dim);
     padding:3px 8px; border-radius:6px; white-space:nowrap; align-self:flex-start;
   }
-
   .section-label{
     font-size:12px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em;
     margin:18px 0 8px; font-family:'Oswald';
   }
   .section-label:first-child{margin-top:0;}
-
-  /* Tabs */
   .tabs{display:flex; gap:8px; margin-bottom:14px;}
   .tabs button{
     flex:1; background:var(--bg-panel); border:1px solid var(--line); color:var(--ink-dim);
     padding:8px; border-radius:8px; font-size:12px; font-family:'Oswald'; letter-spacing:.04em;
   }
   .tabs button.active{background:var(--bg-panel-2); color:var(--gold); border-color:var(--gold-dim);}
-
   nav.bottom{
     position:fixed; bottom:0; left:0; right:0; background:var(--bg-void);
     border-top:1px solid var(--line); display:flex; z-index:10;
@@ -142,8 +111,6 @@
   }
   nav.bottom button.active{color:var(--gold);}
   nav.bottom .icon{width:20px; height:20px; display:block;}
-
-  /* Detail sheet */
   .sheet-backdrop{
     position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:20; display:none;
   }
@@ -194,23 +161,9 @@
 
 <header class="top">
   <div class="brand"><span class="bulb"></span><h1>TV Companion</h1></div>
-  <button id="settingsBtn">Impostazioni</button>
 </header>
 
 <main>
-  <!-- Onboarding -->
-  <section class="view" id="view-onboard">
-    <div class="onboard">
-      <h2 style="font-size:16px;">Configura TMDB</h2>
-      <p>Per cercare film e serie serve una API key gratuita di The Movie Database. Vai su
-      <a href="https://www.themoviedb.org/settings/api" target="_blank">themoviedb.org/settings/api</a>,
-      crea un account e richiedi una "API Key (v3 auth)". Poi incollala qui sotto — resta salvata solo su questo dispositivo.</p>
-      <input type="text" id="apiKeyInput" placeholder="Incolla qui la tua TMDB API key">
-      <button class="primary" id="saveKeyBtn">Salva e continua</button>
-    </div>
-  </section>
-
-  <!-- Calendar -->
   <section class="view" id="view-calendar">
     <div class="section-label">Prossime uscite</div>
     <div id="calendarList"></div>
@@ -218,16 +171,14 @@
     <div id="noDateList"></div>
   </section>
 
-  <!-- Search -->
   <section class="view" id="view-search">
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Cerca serie o film..." autocomplete="off">
+      <input type="text" id="searchInput" placeholder="Cerca una serie TV..." autocomplete="off">
       <button id="searchBtn">Cerca</button>
     </div>
     <div class="grid" id="searchResults"></div>
   </section>
 
-  <!-- Library -->
   <section class="view" id="view-library">
     <div class="tabs" id="libTabs">
       <button data-status="watching" class="active">In corso</button>
@@ -262,9 +213,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const IMG = "https://image.tmdb.org/t/p/w300";
-const API = "https://api.themoviedb.org/3";
-let apiKey = localStorage.getItem("tmdb_key");
+const API = "https://api.tvmaze.com";
 let library = JSON.parse(localStorage.getItem("tv_library") || "{}");
 
 function saveLibrary(){ localStorage.setItem("tv_library", JSON.stringify(library)); }
@@ -272,6 +221,12 @@ function toast(msg){
   const t = document.getElementById("toast");
   t.textContent = msg; t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"), 1800);
+}
+function stripHtml(html){
+  if(!html) return "";
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  return d.textContent || "";
 }
 
 // ---------- View / nav ----------
@@ -286,30 +241,11 @@ function showView(name){
 document.querySelectorAll("nav.bottom button").forEach(b=>{
   b.addEventListener("click", ()=>showView(b.dataset.view));
 });
-document.getElementById("settingsBtn").addEventListener("click", ()=>{
-  document.getElementById("apiKeyInput").value = apiKey || "";
-  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-  document.getElementById("view-onboard").classList.add("active");
-});
 
-// ---------- Onboarding ----------
-document.getElementById("saveKeyBtn").addEventListener("click", ()=>{
-  const val = document.getElementById("apiKeyInput").value.trim();
-  if(!val){ toast("Incolla prima la API key"); return; }
-  apiKey = val;
-  localStorage.setItem("tmdb_key", apiKey);
-  toast("Salvata");
-  showView("calendar");
-});
-
-// ---------- TMDB ----------
-async function tmdb(path, params={}){
-  const url = new URL(API + path);
-  url.searchParams.set("api_key", apiKey);
-  url.searchParams.set("language", "it-IT");
-  Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));
-  const res = await fetch(url);
-  if(!res.ok) throw new Error("TMDB error " + res.status);
+// ---------- TVMaze ----------
+async function tvmaze(path){
+  const res = await fetch(API + path);
+  if(!res.ok) throw new Error("TVMaze error " + res.status);
   return res.json();
 }
 
@@ -317,25 +253,22 @@ async function tmdb(path, params={}){
 async function doSearch(){
   const q = document.getElementById("searchInput").value.trim();
   const resultsEl = document.getElementById("searchResults");
-  if(!apiKey){ showView("calendar"); document.getElementById("settingsBtn").click(); return; }
   if(!q){ resultsEl.innerHTML = ""; return; }
   resultsEl.innerHTML = "<div class='empty'>Cerco...</div>";
   try{
-    const data = await tmdb("/search/multi", {query:q, include_adult:"false"});
-    const items = (data.results||[]).filter(i=>i.media_type==="tv"||i.media_type==="movie");
-    if(!items.length){ resultsEl.innerHTML = "<div class='empty'>Nessun risultato</div>"; return; }
+    const data = await tvmaze("/search/shows?q=" + encodeURIComponent(q));
+    if(!data.length){ resultsEl.innerHTML = "<div class='empty'>Nessun risultato</div>"; return; }
     resultsEl.innerHTML = "";
-    items.forEach(item=>{
-      const title = item.title || item.name;
-      const poster = item.poster_path ? IMG+item.poster_path : "";
+    data.forEach(({show})=>{
+      const poster = show.image ? show.image.medium : "";
       const card = document.createElement("div");
       card.className = "poster-card";
-      card.innerHTML = `${poster?`<img src="${poster}" alt="">`:`<div style="aspect-ratio:2/3;background:var(--bg-panel);border-radius:8px;border:1px solid var(--line);"></div>`}<div class="t">${title}</div>`;
-      card.addEventListener("click", ()=>openDetail(item.id, item.media_type));
+      card.innerHTML = `${poster?`<img src="${poster}" alt="">`:`<div style="aspect-ratio:2/3;background:var(--bg-panel);border-radius:8px;border:1px solid var(--line);"></div>`}<div class="t">${show.name}</div>`;
+      card.addEventListener("click", ()=>openDetail(show.id));
       resultsEl.appendChild(card);
     });
   }catch(e){
-    resultsEl.innerHTML = "<div class='empty'>Errore nella ricerca. Controlla la API key nelle impostazioni.</div>";
+    resultsEl.innerHTML = "<div class='empty'>Errore nella ricerca. Riprova tra poco.</div>";
   }
 }
 document.getElementById("searchBtn").addEventListener("click", doSearch);
@@ -348,61 +281,45 @@ function closeSheet(){ sheet.classList.remove("open"); sheetBackdrop.classList.r
 document.getElementById("sheetClose").addEventListener("click", closeSheet);
 sheetBackdrop.addEventListener("click", closeSheet);
 
-async function openDetail(id, type, seasonToShow){
+async function openDetail(id, seasonToShow){
   const content = document.getElementById("sheetContent");
   content.innerHTML = "<div class='empty'>Carico...</div>";
   sheet.classList.add("open"); sheetBackdrop.classList.add("open");
   try{
-    const data = type==="tv"
-      ? await tmdb(`/tv/${id}`, {append_to_response:"next_episode_to_air"})
-      : await tmdb(`/movie/${id}`);
-    const key = type+"_"+id;
+    const show = await tvmaze(`/shows/${id}?embed[]=nextepisode&embed[]=previousepisode`);
+    const key = "tv_" + id;
     const entry = library[key];
-    const title = data.title || data.name;
-    const poster = data.poster_path ? IMG+data.poster_path : "";
+    const poster = show.image ? show.image.medium : "";
+    const nextEp = show._embedded && show._embedded.nextepisode;
 
-    let statusHtml = `
+    const statusHtml = `
       <div class="status-row">
         <button data-s="planned">Da vedere</button>
         <button data-s="watching">In corso</button>
         <button data-s="completed">Completata</button>
       </div>`;
 
-    let epHtml = "";
-    if(type==="tv"){
-      const seasons = (data.seasons||[]).filter(s=>s.season_number>0);
-      const currentSeason = seasonToShow || (entry?.currentSeason) || (seasons[0]?.season_number || 1);
-      epHtml = `<select class="season-select" id="seasonSelect">
-        ${seasons.map(s=>`<option value="${s.season_number}" ${s.season_number===currentSeason?"selected":""}>Stagione ${s.season_number}</option>`).join("")}
-      </select>
-      <div class="ep-list" id="epList"><div class="empty">Carico episodi...</div></div>`;
-    }
-
     content.innerHTML = `
       <div class="head">
         ${poster?`<img src="${poster}">`:""}
         <div>
-          <h2>${title}</h2>
-          <div class="meta">${type==="tv" ? (data.first_air_date||"").slice(0,4) : (data.release_date||"").slice(0,4)}</div>
-          ${type==="tv" && data.next_episode_to_air ? `<div class="date-chip">Prossimo: S${data.next_episode_to_air.season_number}E${data.next_episode_to_air.episode_number} · ${data.next_episode_to_air.air_date}</div>` : ""}
+          <h2>${show.name}</h2>
+          <div class="meta">${(show.premiered||"").slice(0,4)} · ${show.status||""}</div>
+          ${nextEp ? `<div class="date-chip">Prossimo: S${nextEp.season}E${nextEp.number} · ${nextEp.airdate}</div>` : ""}
         </div>
       </div>
-      <div class="overview">${data.overview || "Nessuna trama disponibile."}</div>
+      <div class="overview">${stripHtml(show.summary) || "Nessuna trama disponibile."}</div>
       ${statusHtml}
-      ${epHtml}
+      <select class="season-select" id="seasonSelect"></select>
+      <div class="ep-list" id="epList"><div class="empty">Carico episodi...</div></div>
     `;
 
-    // status buttons
     content.querySelectorAll(".status-row button").forEach(btn=>{
       if(entry && entry.status===btn.dataset.s) btn.classList.add("active");
       btn.addEventListener("click", ()=>{
-        library[key] = library[key] || {type, title, poster_path:data.poster_path, watchedEpisodes:[], addedAt:Date.now()};
+        library[key] = library[key] || {title:show.name, poster, watchedEpisodes:[], addedAt:Date.now()};
         library[key].status = btn.dataset.s;
-        if(type==="tv"){
-          library[key].nextEpisode = data.next_episode_to_air || null;
-        } else {
-          library[key].releaseDate = data.release_date || null;
-        }
+        library[key].nextEpisode = nextEp ? {season:nextEp.season, number:nextEp.number, airdate:nextEp.airdate} : null;
         saveLibrary();
         content.querySelectorAll(".status-row button").forEach(b=>b.classList.remove("active"));
         btn.classList.add("active");
@@ -410,35 +327,37 @@ async function openDetail(id, type, seasonToShow){
       });
     });
 
-    if(type==="tv"){
-      const seasonSelect = document.getElementById("seasonSelect");
-      const loadSeason = async (snum)=>{
-        const epList = document.getElementById("epList");
-        epList.innerHTML = "<div class='empty'>Carico episodi...</div>";
-        const seasonData = await tmdb(`/tv/${id}/season/${snum}`);
-        const watched = (library[key]?.watchedEpisodes)||[];
-        epList.innerHTML = "";
-        (seasonData.episodes||[]).forEach(ep=>{
-          const isWatched = watched.some(w=>w.season===snum && w.episode===ep.episode_number);
-          const row = document.createElement("div");
-          row.className = "ep-row";
-          row.innerHTML = `<span class="num">E${ep.episode_number} · ${ep.name||""} ${ep.air_date?("· "+ep.air_date):""}</span>
-            <button class="${isWatched?'done':''}">${isWatched?'✓':''}</button>`;
-          row.querySelector("button").addEventListener("click", (e)=>{
-            library[key] = library[key] || {type, title, poster_path:data.poster_path, status:"watching", watchedEpisodes:[], addedAt:Date.now()};
-            const w = library[key].watchedEpisodes;
-            const idx = w.findIndex(x=>x.season===snum && x.episode===ep.episode_number);
-            if(idx>-1){ w.splice(idx,1); e.target.classList.remove("done"); e.target.textContent=""; }
-            else{ w.push({season:snum, episode:ep.episode_number}); e.target.classList.add("done"); e.target.textContent="✓"; }
-            library[key].currentSeason = snum;
-            saveLibrary();
-          });
-          epList.appendChild(row);
+    const allEpisodes = await tvmaze(`/shows/${id}/episodes`);
+    const seasons = [...new Set(allEpisodes.map(e=>e.season))].sort((a,b)=>a-b);
+    const seasonSelect = document.getElementById("seasonSelect");
+    const startSeason = seasonToShow || (entry && entry.currentSeason) || seasons[0] || 1;
+    seasonSelect.innerHTML = seasons.map(s=>`<option value="${s}" ${s===startSeason?"selected":""}>Stagione ${s}</option>`).join("");
+
+    function loadSeason(snum){
+      const epList = document.getElementById("epList");
+      const watched = (library[key] && library[key].watchedEpisodes) || [];
+      const episodes = allEpisodes.filter(e=>e.season===snum);
+      epList.innerHTML = "";
+      episodes.forEach(ep=>{
+        const isWatched = watched.some(w=>w.season===snum && w.episode===ep.number);
+        const row = document.createElement("div");
+        row.className = "ep-row";
+        row.innerHTML = `<span class="num">E${ep.number} · ${ep.name||""} ${ep.airdate?("· "+ep.airdate):""}</span>
+          <button class="${isWatched?'done':''}">${isWatched?'✓':''}</button>`;
+        row.querySelector("button").addEventListener("click", (e)=>{
+          library[key] = library[key] || {title:show.name, poster, status:"watching", watchedEpisodes:[], addedAt:Date.now()};
+          const w = library[key].watchedEpisodes;
+          const idx = w.findIndex(x=>x.season===snum && x.episode===ep.number);
+          if(idx>-1){ w.splice(idx,1); e.target.classList.remove("done"); e.target.textContent=""; }
+          else{ w.push({season:snum, episode:ep.number}); e.target.classList.add("done"); e.target.textContent="✓"; }
+          library[key].currentSeason = snum;
+          saveLibrary();
         });
-      };
-      seasonSelect.addEventListener("change", ()=>loadSeason(parseInt(seasonSelect.value)));
-      loadSeason(parseInt(seasonSelect.value));
+        epList.appendChild(row);
+      });
     }
+    seasonSelect.addEventListener("change", ()=>loadSeason(parseInt(seasonSelect.value)));
+    loadSeason(startSeason);
   }catch(e){
     content.innerHTML = "<div class='empty'>Errore nel caricamento.</div>";
   }
@@ -458,17 +377,15 @@ document.querySelectorAll("#libTabs button").forEach(b=>{
 function renderLibrary(){
   const list = document.getElementById("libraryList");
   const entries = Object.entries(library).filter(([k,v])=>v.status===currentLibTab);
-  if(!entries.length){ list.innerHTML = "<div class='empty'>Niente qui. Cerca qualcosa e aggiungila alla libreria.</div>"; return; }
+  if(!entries.length){ list.innerHTML = "<div class='empty'>Niente qui. Cerca una serie e aggiungila alla libreria.</div>"; return; }
   list.innerHTML = "";
   entries.forEach(([key, v])=>{
-    const [type, id] = key.split("_");
-    const poster = v.poster_path ? IMG+v.poster_path : "";
+    const id = key.split("_")[1];
+    const nextInfo = v.nextEpisode ? `Prossimo: S${v.nextEpisode.season}E${v.nextEpisode.number} · ${v.nextEpisode.airdate}` : "";
     const div = document.createElement("div");
-    div.className = "ticket " + (type==="movie"?"movie":"");
-    const nextInfo = v.nextEpisode ? `Prossimo: S${v.nextEpisode.season_number}E${v.nextEpisode.episode_number} · ${v.nextEpisode.air_date}` :
-      (type==="movie" && v.releaseDate ? `Uscita: ${v.releaseDate}` : "");
+    div.className = "ticket";
     div.innerHTML = `
-      ${poster?`<img src="${poster}">`:""}
+      ${v.poster?`<img src="${v.poster}">`:""}
       <div class="info">
         <h3>${v.title}</h3>
         <div class="meta">${nextInfo}</div>
@@ -479,7 +396,7 @@ function renderLibrary(){
         </div>
       </div>
     `;
-    div.querySelector('[data-action="open"]').addEventListener("click", ()=>openDetail(parseInt(id), type));
+    div.querySelector('[data-action="open"]').addEventListener("click", ()=>openDetail(parseInt(id)));
     div.querySelector('[data-action="remove"]').addEventListener("click", ()=>{
       delete library[key]; saveLibrary(); renderLibrary(); toast("Rimossa dalla libreria");
     });
@@ -492,43 +409,35 @@ function renderCalendar(){
   const calList = document.getElementById("calendarList");
   const noDateList = document.getElementById("noDateList");
   const noDateLabel = document.getElementById("noDateLabel");
-  if(!apiKey){
-    calList.innerHTML = "<div class='empty'>Configura la tua TMDB API key nelle impostazioni per iniziare.</div>";
-    noDateList.innerHTML = ""; noDateLabel.style.display = "none";
-    return;
-  }
   const withDate = [];
   const withoutDate = [];
   Object.entries(library).forEach(([key, v])=>{
     if(v.status !== "watching") return;
-    const [type, id] = key.split("_");
-    if(type==="tv" && v.nextEpisode?.air_date){
-      withDate.push({key, id, type, title:v.title, poster_path:v.poster_path, date:v.nextEpisode.air_date, label:`S${v.nextEpisode.season_number}E${v.nextEpisode.episode_number}`});
-    } else if(type==="movie" && v.releaseDate){
-      withDate.push({key, id, type, title:v.title, poster_path:v.poster_path, date:v.releaseDate, label:"Uscita film"});
+    const id = key.split("_")[1];
+    if(v.nextEpisode && v.nextEpisode.airdate){
+      withDate.push({key, id, title:v.title, poster:v.poster, date:v.nextEpisode.airdate, label:`S${v.nextEpisode.season}E${v.nextEpisode.number}`});
     } else {
-      withoutDate.push({key, id, type, title:v.title, poster_path:v.poster_path});
+      withoutDate.push({key, id, title:v.title, poster:v.poster});
     }
   });
   withDate.sort((a,b)=>a.date.localeCompare(b.date));
 
   if(!withDate.length){
-    calList.innerHTML = "<div class='empty'>Nessuna uscita in programma. Aggiungi serie o film \"in corso\" dalla libreria.</div>";
+    calList.innerHTML = "<div class='empty'>Nessuna uscita in programma. Aggiungi serie \"in corso\" dalla libreria.</div>";
   } else {
     calList.innerHTML = "";
     withDate.forEach(item=>{
-      const poster = item.poster_path ? IMG+item.poster_path : "";
       const div = document.createElement("div");
-      div.className = "ticket " + (item.type==="movie"?"movie":"");
+      div.className = "ticket";
       div.innerHTML = `
-        ${poster?`<img src="${poster}">`:""}
+        ${item.poster?`<img src="${item.poster}">`:""}
         <div class="info">
           <h3>${item.title}</h3>
           <div class="meta">${item.label}</div>
         </div>
         <div class="date-chip">${item.date}</div>
       `;
-      div.addEventListener("click", ()=>openDetail(parseInt(item.id), item.type));
+      div.addEventListener("click", ()=>openDetail(parseInt(item.id)));
       calList.appendChild(div);
     });
   }
@@ -537,11 +446,10 @@ function renderCalendar(){
     noDateLabel.style.display = "block";
     noDateList.innerHTML = "";
     withoutDate.forEach(item=>{
-      const poster = item.poster_path ? IMG+item.poster_path : "";
       const div = document.createElement("div");
-      div.className = "ticket " + (item.type==="movie"?"movie":"");
-      div.innerHTML = `${poster?`<img src="${poster}">`:""}<div class="info"><h3>${item.title}</h3><div class="meta">Data non ancora annunciata</div></div>`;
-      div.addEventListener("click", ()=>openDetail(parseInt(item.id), item.type));
+      div.className = "ticket";
+      div.innerHTML = `${item.poster?`<img src="${item.poster}">`:""}<div class="info"><h3>${item.title}</h3><div class="meta">Data non ancora annunciata</div></div>`;
+      div.addEventListener("click", ()=>openDetail(parseInt(item.id)));
       noDateList.appendChild(div);
     });
   } else {
@@ -550,11 +458,7 @@ function renderCalendar(){
 }
 
 // ---------- Boot ----------
-if(!apiKey){
-  document.getElementById("view-onboard").classList.add("active");
-} else {
-  showView("calendar");
-}
+showView("calendar");
 
 if("serviceWorker" in navigator){
   window.addEventListener("load", ()=>{
